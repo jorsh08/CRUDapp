@@ -2,17 +2,19 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-nativ
 import React, { useEffect } from 'react'
 import { RadioButton } from 'react-native-paper';
 
-const Crear = ({ navigation }) => {
+
+const ModificarPersona = ({ navigation, route }) => {
+
     const [sexo, setSexo] = React.useState('hombre');
     const [nombre, setNombre] = React.useState("");
     const [apellido, setApellido] = React.useState("");
     const [edad, setEdad] = React.useState(null);
 
 
-    async function peticionPOST(persona){
+    async function peticionPUT(persona, idPersona){
         try {
-            const res = await fetch('http://177.229.128.9:8000/Persona/', {
-              method: 'POST',
+            const res = await fetch('http://177.229.128.9:8000/Persona/'+idPersona+'/', {
+              method: 'PUT',
               headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
@@ -26,17 +28,27 @@ const Crear = ({ navigation }) => {
           }
     }
 
-    async function crearPersona(){
+    async function modificarPersona(idPersona){
         const persona = {
             nombre: nombre,
             apellido: apellido,
             edad: edad,
             sexo: sexo
         }
-        peticionPOST(persona)
+        peticionPUT(persona, idPersona)
     }
 
-    
+    async function getParametros(){
+        
+        setNombre(route.params.nombre)
+        setApellido(route.params.apellido)
+        setEdad(route.params.edad+"")
+        setSexo(route.params.sexo)
+    }
+
+    useEffect(()=>{
+        getParametros()
+      }, [route])
 
   return (
     <View style={style.contenedorPrincipal}>
@@ -82,8 +94,8 @@ const Crear = ({ navigation }) => {
             
             <TouchableOpacity
                 style={style.crear}
-                onPress={()=> crearPersona()}>
-                <Text>Crear</Text>
+                onPress={()=> modificarPersona(route.params.id)}>
+                <Text>Modificar</Text>
             </TouchableOpacity>
         </View>
         
@@ -146,4 +158,4 @@ const style = StyleSheet.create({
     }
 })
 
-export default Crear
+export default ModificarPersona

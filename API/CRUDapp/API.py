@@ -1,3 +1,4 @@
+from cgitb import reset
 from .models import Persona
 from rest_framework import viewsets, permissions
 from .serializers import PersonaSerializer

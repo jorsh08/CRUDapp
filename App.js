@@ -6,6 +6,7 @@ import Crear from './Vistas/Crear'
 import Lista from './Vistas/Lista';
 import Modificar from './Vistas/Modificar';
 import Eliminar from './Vistas/Eliminar';
+import ModificarPersona from './Vistas/ModificarPersona';
 const Stack = createNativeStackNavigator();
 
 const App = () => {
@@ -17,6 +18,7 @@ const App = () => {
         <Stack.Screen name="Lista" component={Lista}/>
         <Stack.Screen name="Modificar" component={Modificar}/>
         <Stack.Screen name="Eliminar" component={Eliminar}/>
+        <Stack.Screen name='ModificarPersona' component={ModificarPersona}/>
       </Stack.Navigator>
     </NavigationContainer>
   )
